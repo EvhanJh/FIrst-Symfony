@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  app:
+    build: ./docker
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www/html
+  pma:
+    image: phpmyadmin
+    ports:
+      - 8001:80
+    links:
+      - mysql:db
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
